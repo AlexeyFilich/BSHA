@@ -1,0 +1,26 @@
+{
+    "compiler_executable_path": "g++",
+    "global_compiler_flags": [
+        "-std=c++17"
+    ],
+    "main": {
+        "file": "test/main.cpp",
+        "output_name": "main.out",
+        "flags": [
+        ],
+        "bin_libs": [
+        ]
+    },
+    "libraries": [
+        
+    ],
+    "include_path": [
+        "include/"
+    ],
+    "library_path": [
+        
+    ],
+    "other_commands": [
+        "mv build/main.out bin/main"
+    ]
+}
