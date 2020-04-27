@@ -1,3 +1,6 @@
 [submodule "third-party/ColorType"]
 	path = third-party/ColorType
 	url = https://github.com/AlexeyFilich/ColorType.git
+[submodule "third-party/toolbox"]
+	path = third-party/toolbox
+	url = https://github.com/AlexeyFilich/toolbox
