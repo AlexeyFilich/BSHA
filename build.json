@@ -15,12 +15,14 @@
         
     ],
     "include_path": [
-        "include/"
+        "include/",
+        "third-party/toolbox/"
     ],
     "library_path": [
         
     ],
     "other_commands": [
-        "mv build/main.out bin/main"
+        "mv build/main.out bin/main",
+        "./bin/main"
     ]
 }

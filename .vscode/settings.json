@@ -3,7 +3,7 @@
         "typeinfo": "cpp"
     },
     "C_Cpp.default.includePath": [
-        "${workspaceFolder}/third-party/ColorType/include/*",
+        "${workspaceFolder}/include/*",
         "${workspaceFolder}/third-party/toolbox/*"
     ]
 }

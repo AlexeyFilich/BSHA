@@ -16,7 +16,8 @@ printf -- "\e[1;32m-- Compiler: \e[1;4;93mg++\e[0m\n"
 printf -- "\e[1;32m-- Global flags: \e[1;97m-std=c++17 \e[0m\n"
 
 printf -- "\e[1;32m-- Include path:\n"
-printf -- "\e[1;32m[1] \e[1;97minclude/"
+printf -- "\e[1;32m[1] \e[1;97minclude/\n"
+printf -- "\e[1;32m[2] \e[1;97mthird-party/toolbox/"
 printf -- "\e[0m\n"
 
 printf -- "\e[1;32m-- Library path:\n"
@@ -24,7 +25,7 @@ printf -- "\e[0m\n"
 
 printf -- "\e[1;32m-- Building \e[1;4;97mtest/main.cpp\e[0m\n"
 [ -f build/main.out ] && rm build/main.out
-g++ -I"include/" -std=c++17 -o build/main.out test/main.cpp 
+g++ -I"include/" -I"third-party/toolbox/" -std=c++17 -o build/main.out test/main.cpp 
 if [ ! -f build/main.out ]
 then
     echo > build/sources/test/main.hash
@@ -34,3 +35,4 @@ fi
 
 
 mv build/main.out bin/main
+./bin/main
