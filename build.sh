@@ -23,16 +23,15 @@ printf -- "\e[0m\n"
 printf -- "\e[1;32m-- Library path:\n"
 printf -- "\e[0m\n"
 
-printf -- "\e[1;32m-- Building \e[1;4;97mtest/main.cpp\e[0m\n"
+printf -- "\e[1;32m-- Building \e[1;4;97msrc/main.cpp\e[0m\n"
 [ -f build/main.out ] && rm build/main.out
-g++ -I"include/" -I"third-party/toolbox/" -std=c++17 -o build/main.out test/main.cpp 
+g++ -I"include/" -I"third-party/toolbox/" -std=c++17 -o build/main.out src/main.cpp 
 if [ ! -f build/main.out ]
 then
-    echo > build/sources/test/main.hash
+    echo > build/sources/src/main.hash
     printf -- "\e[1;91m-- Compilation failed!\e[0m\n"
     exit 1
 fi
 
 
-mv build/main.out bin/main
-./bin/main
+cp build/main.out bin/main

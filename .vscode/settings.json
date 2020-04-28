@@ -1,6 +1,8 @@
 {
     "files.associations": {
-        "typeinfo": "cpp"
+        "typeinfo": "cpp",
+        "fstream": "cpp",
+        "regex": "cpp"
     },
     "C_Cpp.default.includePath": [
         "${workspaceFolder}/include/*",

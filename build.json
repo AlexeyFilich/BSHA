@@ -1,28 +1,32 @@
 {
     "compiler_executable_path": "g++",
     "global_compiler_flags": [
-        "-std=c++17"
+        "-std=c++17",
+        "-static-libstdc++",
+        "-static-libgcc"
     ],
     "main": {
-        "file": "test/main.cpp",
+        "file": "src/main.cpp",
         "output_name": "main.out",
         "flags": [
         ],
         "bin_libs": [
+            "-lxa",
+            "lxb",
+            "xc",
+            "-xd"
         ]
     },
-    "libraries": [
-        
+    "libraries": [    
     ],
     "include_path": [
         "include/",
         "third-party/toolbox/"
     ],
     "library_path": [
-        
+        "lib/"
     ],
     "other_commands": [
-        "mv build/main.out bin/main",
-        "./bin/main"
+        "cp build/main.out bin/main"
     ]
 }
