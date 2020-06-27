@@ -1,62 +1,62 @@
 # BSHA - Build .sh assembler for C++
-BSHA is a tool for simplifying process of creating build shell files for C++ programs using g++.
+BSHA is a tool for simplifying process of creating build shell files for C++ programs.
 
 ## Building
 To build BSHA for Linux use:
 ```
 $ ./build.sh
 ```
-Built file will be located at `bin/bsha`
+Built binary can be found in `bin/bsha`
 
 ## Usage
-To create `build.sh` file you need to create `.json` file with all the configurations required:
+To create `build.sh` file bsha uses special `.json` files with all the configurations for program or library:
 ```jsonc
 {
-    // Main file to compile
-    "main_executable": "src/main.cpp",
-
-    // Main output file name
-    "executable_output_name": "main.out",
-    
-    // Compiler flags for main file
-    "compiler_flags": [
-        "-std=c++17"
-    ],
-
-    // Binary libraries for main file
-    "bin_libraries": [
-
-    ],
-
-    "libraries": [
+    "project": "program",
+    "compiler": {
+        "path": "g++",
+        "flags": "-std=c++17 -static-libstdc++ -static-libgcc",
+        "include_path": [
+            "include/",
+            "third-party/toolbox/"
+        ],
+        "library_path": [
+            "lib/"
+        ]
+    },
+    "main": {
+        "path": "src/main.cpp",
+        "output_name": "main.out",
+        "flags": "",
+        "binaries": ""
+    },
+    "sources": [
         {
-            "path": "src/test.cpp", // test.h must be in the same folder or in folder specified in "include_path"
-            "flags": [
-                "-std=c++17"
-            ],
-            "bin_libraries": [
-        
-            ]
+            "path": "src/a.cpp",
+            "flags": "",
+            "binaries": ""
         }
     ],
-
-    // Path to search for .h or .hpp files
-    "include_path": [
-        "include"
-    ],
-
-    // Path to search for binary libraries
-    "library_path": [
-
-    ],
-
-    "other_commands": [
-        "mv build/main.out bin/bsha" // This command will be executed after compiling all files
+    "extra_commands": [
+        "echo Hello, world!"
     ]
 }
 ```
-Then type:
-```
-$ bsha json_file_name.json
-```
-Your build.json will be located in the folder, where command was executed
+Variable descriptions:
+
+`"project"` - type of project. Possible values: `program` and `library` \
+`"compiler"`: \
+. . . . . `"path"` - path to compiler executable (ex: `g++`, `g++.exe`) \
+. . . . . `"flags"` - compiler flags that will be used in all compiled files \
+. . . . . `"include_path"` - array of string each containing include paths \
+. . . . . `"include_path"` - array of string each containing library paths \
+`"main"`: \
+. . . . . `"path"` - path to main executable \
+. . . . . `"output_name"` - name of output file \
+. . . . . `"flags"` - compiler flags for main file \
+. . . . . `"binaries"` - ... \
+`"sources"`: \
+. . . . . `"path"` - path to file \
+. . . . . `"flags"` - flags for this file \
+. . . . . `"binaries"` - ... \
+`"extra_commands"` - commands that will be executed after successful compilation

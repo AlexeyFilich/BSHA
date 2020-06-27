@@ -7,5 +7,6 @@
     "C_Cpp.default.includePath": [
         "${workspaceFolder}/include/*",
         "${workspaceFolder}/third-party/toolbox/*"
-    ]
+    ],
+    "cSpell.enabled": true
 }
