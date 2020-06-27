@@ -9,7 +9,7 @@ fi
 [ ! -d build ] && mkdir build
 
 main_should_recompile="False"
-total=1
+total=2
 current=1
 
 start=$(date '+%s')
@@ -52,15 +52,25 @@ printf -- "\e[38;05;2;49;24;27m--\e[0m \e[38;05;2;49;04;27mStarting build proces
 printf -- "\e[38;05;2;49;24;27m-- Compiler: \e[0m \e[38;05;3;49;04;27mg++\e[0m\n\n"
 
 recompile="False"
+printHeader src/a.cpp
+checkRecomp src/a.cpp build/src/a.hash build/src/ build/src/a.o 
+if [ $recompile == "True" ]
+then
+    g++ -c -std=c++17 -static-libstdc++ -static-libgcc  -I"include/" -I"third-party/toolbox/" -L"lib/" src/a.cpp -o build/src/a.o
+    checkSuccess build/src/a.o build/src/a.hash
+    echo "$(md5sum src/a.cpp)" > build/src/a.hash
+fi
+
+recompile="False"
 printHeader src/main.cpp
 checkRecomp src/main.cpp build/src/main.hash build/src/ build/src/main.o 
 if [ $recompile == "True" ] || [ $main_should_recompile == "True" ]
 then
-    g++ -std=c++17 -static-libstdc++ -static-libgcc  -I"include/" -I"third-party/toolbox/" -L"lib/" src/main.cpp -o build/src/main.out
+    g++ -std=c++17 -static-libstdc++ -static-libgcc  -I"include/" -I"third-party/toolbox/" -L"lib/" src/main.cpp -o build/src/main.out build/src/a.o
     checkSuccess build/src/main.out build/src/main.hash
     echo "$(md5sum src/main.cpp)" > build/src/main.hash
 fi
 
-cp build/src/main.out bin/bsha
+echo Hello, world!
 
 printf -- "\n\e[38;05;2;49;24;27mDone! in \e[0m[38;05;3;49;04;27m$(($(date '+%s') - $start))sec.[0m\n"

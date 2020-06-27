@@ -26,8 +26,6 @@ std::string template_json =
 "        \"flags\": \"\",\n"
 "        \"binaries\": \"\"\n"
 "    },\n"
-"    \"enable_inline\": true,\n"
-"    \"inline_search_path\": \"src/\",\n"
 "    \"sources\": [\n"
 "        {\n"
 "            \"path\": \"src/a.cpp\",\n"
