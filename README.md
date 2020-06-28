@@ -1,3 +1,5 @@
+[![CodeFactor](https://www.codefactor.io/repository/github/alexeyfilich/bsha/badge/master)](https://www.codefactor.io/repository/github/alexeyfilich/bsha/overview/master)
+
 # BSHA - Build .sh assembler for C++
 BSHA is a tool for simplifying process of creating build shell files for C++ programs.
 
