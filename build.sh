@@ -56,7 +56,7 @@ printHeader src/main.cpp
 checkRecomp src/main.cpp build/src/main.hash build/src/ build/src/main.o 
 if [ $recompile == "True" ] || [ $main_should_recompile == "True" ]
 then
-    g++ -std=c++17 -static-libstdc++ -static-libgcc  -I"include/" -I"third-party/toolbox/" -L"lib/" src/main.cpp -o build/src/main.out
+    g++ -std=c++17 -static-libstdc++ -static-libgcc -I"include/" -I"third-party/toolbox/" -L"lib/" src/main.cpp -o build/src/main.out 
     checkSuccess build/src/main.out build/src/main.hash
     echo "$(md5sum src/main.cpp)" > build/src/main.hash
 fi

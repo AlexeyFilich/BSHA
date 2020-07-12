@@ -43,6 +43,8 @@ int main(int argc, char *argv[]) {
         }
         std::string compiler = (std::string)json["compiler"]["path"];
         std::string gflags = (std::string)json["compiler"]["flags"];
+        if (gflags != "")
+            gflags = " " + gflags;
         std::string cpath = "";
         for (int i = 0; i < json["compiler"]["include_path"].size(); i++)
             cpath += " -I\"" + (std::string)json["compiler"]["include_path"][i] + "\"";
@@ -63,12 +65,16 @@ int main(int argc, char *argv[]) {
             std::string lobj = "build/" + path + file + ".o";
             obj.push_back(lobj);
 
+            std::string lflags = (std::string)item["flags"];
+            if (lflags != "")
+                lflags = " " + lflags;
+
             output += "recompile=\"False\"\n";
             output += "printHeader " + path_src + "\n";
             output += "checkRecomp " + path_src + " build/" + path + file + ".hash build/" + path + " build/" + path + file + ".o \n";
             output += "if [ $recompile == \"True\" ]\nthen\n";
             output += "    ";
-            output += compiler + " -c " + gflags + " " + (std::string)item["flags"] + (std::string)item["binaries"] + cpath + " " + path_src + " -o " + lobj;
+            output += compiler + " -c" + gflags + lflags + cpath + " " + path_src + " -o " + lobj + " " + (std::string)item["binaries"];
             output += "\n    checkSuccess " + lobj + " build/" + path + file + ".hash\n    echo \"$(md5sum " + path_src + ")\" > build/" + path + file + ".hash\nfi\n";
 
             output += "\n";
@@ -82,12 +88,16 @@ int main(int argc, char *argv[]) {
             std::string file = file_ext.substr(0, file_ext.find_last_of("."));
             std::string mout = (std::string)json["main"]["output_name"];
 
+            std::string lflags = (std::string)json["main"]["flags"];
+            if (lflags != "")
+                lflags = " " + lflags;
+
             output += "recompile=\"False\"\n";
             output += "printHeader " + path_src + "\n";
             output += "checkRecomp " + path_src + " build/" + path + file + ".hash build/" + path + " build/" + path + file + ".o \n";
             output += "if [ $recompile == \"True\" ] || [ $main_should_recompile == \"True\" ]\nthen\n";
             output += "    ";
-            output += compiler + " " + gflags + " " + (std::string)json["main"]["flags"] + (std::string)json["main"]["binaries"] + cpath + " " + path_src + " -o build/" + path + mout;
+            output += compiler + gflags + lflags + cpath + " " + path_src + " -o build/" + path + mout + " " + (std::string)json["main"]["binaries"];
             for (auto item : obj)
                 output += " " + item;
             output += "\n    checkSuccess build/" + path + mout + " build/" + path + file + ".hash\n    echo \"$(md5sum " + path_src + ")\" > build/" + path + file + ".hash\nfi\n";
