@@ -73,7 +73,6 @@ int main(int argc, char *argv[]) {
             output += "printHeader " + path_src + "\n";
             output += "checkRecomp " + path_src + " build/" + path + file + ".hash build/" + path + " build/" + path + file + ".o \n";
             output += "if [ $recompile == \"True\" ]\nthen\n";
-            output += "    rm " + lobj + "\n";
             output += "    ";
             output += compiler + " -c" + gflags + lflags + cpath + " " + path_src + " -o " + lobj + " " + (std::string)item["binaries"];
             output += "\n    checkSuccess " + lobj + " build/" + path + file + ".hash\n    echo \"$(md5sum " + path_src + ")\" > build/" + path + file + ".hash\nfi\n";
@@ -95,9 +94,9 @@ int main(int argc, char *argv[]) {
 
             output += "recompile=\"False\"\n";
             output += "printHeader " + path_src + "\n";
-            output += "checkRecomp " + path_src + " build/" + path + file + ".hash build/" + path + " build/" + path + file + ".o \n";
+            output += "checkRecomp " + path_src + " build/" + path + file + ".hash build/" + path + " build/" + path + mout + "\n";
             output += "if [ $recompile == \"True\" ] || [ $main_should_recompile == \"True\" ]\nthen\n";
-            output += "    rm build/" + path + mout + "\n";
+            output += "    printf -- \"..... \\e[38;05;3;49;04;27m" + file_ext + "\\e[0m \\e[38;05;10;49;24;27mis updating, because other files have changed\\e[0m\\n\"\n";
             output += "    ";
             output += compiler + gflags + lflags + cpath + " " + path_src + " -o build/" + path + mout;
             for (auto item : obj)

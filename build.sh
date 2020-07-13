@@ -53,9 +53,10 @@ printf -- "\e[38;05;2;49;24;27m-- Compiler: \e[0m \e[38;05;3;49;04;27mg++\e[0m\n
 
 recompile="False"
 printHeader src/main.cpp
-checkRecomp src/main.cpp build/src/main.hash build/src/ build/src/main.o 
+checkRecomp src/main.cpp build/src/main.hash build/src/ build/src/main.out
 if [ $recompile == "True" ] || [ $main_should_recompile == "True" ]
 then
+    printf -- "..... \e[38;05;3;49;04;27mmain.cpp\e[0m \e[38;05;10;49;24;27mis updating, because other files have changed\e[0m\n"
     g++ -std=c++17 -static-libstdc++ -static-libgcc -I"include/" -I"third-party/toolbox/" -L"lib/" src/main.cpp -o build/src/main.out 
     checkSuccess build/src/main.out build/src/main.hash
     echo "$(md5sum src/main.cpp)" > build/src/main.hash
