@@ -73,6 +73,7 @@ int main(int argc, char *argv[]) {
             output += "printHeader " + path_src + "\n";
             output += "checkRecomp " + path_src + " build/" + path + file + ".hash build/" + path + " build/" + path + file + ".o \n";
             output += "if [ $recompile == \"True\" ]\nthen\n";
+            output += "    rm " + lobj + "\n";
             output += "    ";
             output += compiler + " -c" + gflags + lflags + cpath + " " + path_src + " -o " + lobj + " " + (std::string)item["binaries"];
             output += "\n    checkSuccess " + lobj + " build/" + path + file + ".hash\n    echo \"$(md5sum " + path_src + ")\" > build/" + path + file + ".hash\nfi\n";
@@ -96,10 +97,12 @@ int main(int argc, char *argv[]) {
             output += "printHeader " + path_src + "\n";
             output += "checkRecomp " + path_src + " build/" + path + file + ".hash build/" + path + " build/" + path + file + ".o \n";
             output += "if [ $recompile == \"True\" ] || [ $main_should_recompile == \"True\" ]\nthen\n";
+            output += "    rm build/" + path + mout + "\n";
             output += "    ";
-            output += compiler + gflags + lflags + cpath + " " + path_src + " -o build/" + path + mout + " " + (std::string)json["main"]["binaries"];
+            output += compiler + gflags + lflags + cpath + " " + path_src + " -o build/" + path + mout;
             for (auto item : obj)
                 output += " " + item;
+            output +=  " " + (std::string)json["main"]["binaries"];
             output += "\n    checkSuccess build/" + path + mout + " build/" + path + file + ".hash\n    echo \"$(md5sum " + path_src + ")\" > build/" + path + file + ".hash\nfi\n";
         }
 
